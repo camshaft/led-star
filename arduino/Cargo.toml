@@ -10,7 +10,7 @@ fmt = ["dep:ufmt"]
 
 [dependencies]
 led-star = { path = "../lib", default-features = false }
-panic-halt = "0.2"
+panic-halt = "1.0"
 embedded-hal = "1.0"
 avr-device = { version = "0.8", features = ["atmega328p"] }
 
