@@ -1,4 +1,7 @@
-mod lut;
+mod lut {
+    pub static SINE: &[i8; 64] =
+        unsafe { core::mem::transmute::<&[u8; 64], &[i8; 64]>(include_bytes!("osc/sine.bin")) };
+}
 
 pub type Value = i8;
 
@@ -704,7 +707,7 @@ mod tests {
         // Should be close to 40 ticks (4x speed over 10 calls)
         // Allow some tolerance due to fixed-point rounding
         assert!(
-            total_ticks >= 38 && total_ticks <= 42,
+            (38..=42).contains(&total_ticks),
             "Got {} ticks",
             total_ticks
         );
@@ -723,7 +726,7 @@ mod tests {
         // Should be close to 25 ticks (0.25x speed over 100 calls)
         // Allow some tolerance due to fixed-point rounding
         assert!(
-            total_ticks >= 23 && total_ticks <= 27,
+            (23..=27).contains(&total_ticks),
             "Got {} ticks",
             total_ticks
         );
@@ -741,7 +744,7 @@ mod tests {
 
         // Should be close to 25 ticks (2.5x speed over 10 calls)
         assert!(
-            total_ticks >= 23 && total_ticks <= 27,
+            (23..=27).contains(&total_ticks),
             "Got {} ticks",
             total_ticks
         );
@@ -759,7 +762,7 @@ mod tests {
 
         // Should be close to 62-63 ticks (0.625x speed over 100 calls)
         assert!(
-            total_ticks >= 60 && total_ticks <= 65,
+            (60..=65).contains(&total_ticks),
             "Got {} ticks",
             total_ticks
         );

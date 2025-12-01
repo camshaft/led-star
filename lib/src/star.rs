@@ -95,7 +95,7 @@ where
     }
 
     #[inline(always)]
-    pub fn iter(&self) -> impl Iterator<Item = Hsv> + ExactSizeIterator + '_ {
+    pub fn iter(&self) -> impl ExactSizeIterator<Item = Hsv> + '_ {
         StarIter {
             star: self,
             current_spine: 0,
@@ -209,7 +209,7 @@ where
         }
 
         let spine_index = Index {
-            index: self.current_spine as u8,
+            index: self.current_spine,
             total: self.star.layout.spines(),
         };
 
@@ -221,8 +221,8 @@ where
                 }
                 // LED index is just the offset
                 let led_index = Index {
-                    index: self.position_offset as u8,
-                    total: spine_len as u8,
+                    index: self.position_offset,
+                    total: spine_len,
                 };
                 self.star.pattern.spine_color_at(spine_index, led_index)
             }
@@ -233,8 +233,8 @@ where
                 }
                 // Tip LED at the end of the spine
                 let led_index = Index {
-                    index: self.position_offset as u8,
-                    total: tip_len as u8,
+                    index: self.position_offset,
+                    total: tip_len,
                 };
                 self.star.pattern.spine_tip_color_at(spine_index, led_index)
             }
@@ -244,10 +244,10 @@ where
                     assume!(spine_len > 0);
                 }
                 // Mirror: if spine has N LEDs, offset 0 back = LED N-1
-                let led_index = (spine_len - 1 - self.position_offset) as u8;
+                let led_index = spine_len - 1 - self.position_offset;
                 let led_index = Index {
                     index: led_index,
-                    total: spine_len as u8,
+                    total: spine_len,
                 };
                 self.star.pattern.spine_color_at(spine_index, led_index)
             }
@@ -257,8 +257,8 @@ where
                     assume!(arc_len > 0);
                 }
                 let led_index = Index {
-                    index: self.position_offset as u8,
-                    total: arc_len as u8,
+                    index: self.position_offset,
+                    total: arc_len,
                 };
                 self.star.pattern.arc_color_at(spine_index, led_index)
             }

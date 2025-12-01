@@ -2,6 +2,7 @@ use anyhow::Result;
 use clap::Subcommand;
 use xshell::Shell;
 
+pub mod arduino;
 pub mod build;
 pub mod test;
 pub mod visualizer;
@@ -14,6 +15,8 @@ pub enum Command {
     Test(test::Test),
     /// Visualizer commands
     Visualizer(visualizer::Visualizer),
+    /// Arduino commands
+    Arduino(arduino::Arduino),
 }
 
 impl Command {
@@ -22,6 +25,7 @@ impl Command {
             Command::Build(cmd) => cmd.run(sh),
             Command::Test(cmd) => cmd.run(sh),
             Command::Visualizer(cmd) => cmd.run(sh),
+            Command::Arduino(cmd) => cmd.run(sh),
         }
     }
 }

@@ -31,8 +31,15 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Install rust toolchain
+        id: toolchain
+        run: |
+          rustup toolchain install stable --profile minimal --component clippy,rustfmt
+          rustup override set stable
+
       - name: Install wasm32 target
-        run: rustup target add wasm32-unknown-unknown
+        run: |
+          rustup target add wasm32-unknown-unknown
 
       - uses: camshaft/install@v1
         with:

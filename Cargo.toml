@@ -1,7 +1,7 @@
 [workspace]
 resolver = "3"
-
-members = ["lib", "visualizer", "xtask"]
+members = ["arduino", "lib", "visualizer", "xtask"]
+default-members = ["lib", "visualizer", "xtask"]
 
 [workspace.package]
 version = "0.1.0"
@@ -34,3 +34,10 @@ thiserror = "1.0"
 tokio = { version = "1.0" }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+debug = true
+lto = true
+opt-level = "z"

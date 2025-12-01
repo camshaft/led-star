@@ -5,7 +5,7 @@ const RNG_C: u16 = 13849;
 
 #[cfg(test)]
 thread_local! {
-    static RNG_STATE: core::cell::Cell<u16> = core::cell::Cell::new(1);
+    static RNG_STATE: core::cell::Cell<u16> = const { core::cell::Cell::new(1) };
 }
 
 #[cfg(not(test))]
@@ -85,7 +85,7 @@ mod tests {
         seed(42);
         for _ in 0..100 {
             let val = range_u8(10, 20);
-            assert!(val >= 10 && val <= 20);
+            assert!((10..=20).contains(&val));
         }
     }
 

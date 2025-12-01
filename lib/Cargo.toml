@@ -13,5 +13,4 @@ wasm = ["dep:wasm-bindgen"]
 wasm-bindgen = { version = "0.2", optional = true }
 
 [dev-dependencies]
-bolero.workspace = true
 insta.workspace = true

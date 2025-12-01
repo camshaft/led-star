@@ -1,0 +1,12 @@
+[build]
+target = "avr-none"
+
+[target.avr-none]
+rustflags = ["-C", "target-cpu=atmega328p", "-C", "panic=abort"]
+
+[target.'cfg(target_arch = "avr")']
+runner = "ravedude"
+
+[unstable]
+build-std = ["core"]
+build-std-features = ["panic_immediate_abort"]

@@ -1,29 +1,9 @@
-use std::fmt::Write;
-
 fn main() {
-    let lut = lut();
     std::fs::create_dir_all("src/osc").unwrap();
-    std::fs::write("src/osc/lut.rs", lut).unwrap();
+    std::fs::write("src/osc/sine.bin", sin_lut()).unwrap();
 }
 
-fn lut() -> String {
-    let mut lut = String::new();
-    macro_rules! w {
-        ($($tt:tt)*) => {
-            writeln!(lut, $($tt)*).unwrap();
-        };
-    }
-
-    w!("pub const SINE: [i8; 64] = [");
-    for v in sin_lut() {
-        w!("    {v},");
-    }
-    w!("];");
-
-    lut
-}
-
-fn sin_lut() -> Vec<i8> {
+fn sin_lut() -> Vec<u8> {
     // compute half of the wave to save on space
     let mut sine_lut = Vec::with_capacity(64);
     for i in 0..64 {
@@ -31,7 +11,7 @@ fn sin_lut() -> Vec<i8> {
         let value = value.sin();
         // scale the value to the range of an i8
         let value = value * 127.0;
-        let value = value.round() as i8;
+        let value = value.round() as i8 as u8;
         sine_lut.push(value);
     }
     sine_lut

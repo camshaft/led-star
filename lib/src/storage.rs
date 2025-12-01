@@ -4,6 +4,11 @@ pub trait Storage {
     type Value;
 
     fn len(&self) -> Index;
+
+    fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
     fn get(&self, index: Index) -> &Self::Value;
     fn get_mut(&mut self, index: Index) -> &mut Self::Value;
     fn set(&mut self, index: Index, value: Self::Value);

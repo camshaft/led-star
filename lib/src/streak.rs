@@ -10,7 +10,7 @@ pub struct StreakState {
 }
 
 impl fmt::Debug for StreakState {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("StreakState")
             .field("position", &self.position())
             .field("length", &self.length())
@@ -125,7 +125,7 @@ where
     Inner: Pattern + fmt::Debug,
     Streaks: Storage<Value = StreakState>,
 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         if !f.alternate() {
             return self.streaks.fmt(f);
         }
@@ -338,7 +338,7 @@ where
 
     // Gets the total number of LEDs in 7.1 fixed-point
     const fn total_led_fixed() -> u8 {
-        ARC_LEN * TOTAL_ARCS << 1
+        (ARC_LEN * TOTAL_ARCS) << 1
     }
 }
 
@@ -415,8 +415,8 @@ mod tests {
     use super::*;
     use crate::osc::{Constant, OscillatorExt as _, sawtooth};
     use core::fmt;
+    use fmt::Write;
     use insta::assert_snapshot;
-    use std::fmt::Write;
 
     fn run(rows: usize, leds: u8, mut pattern: impl Pattern + fmt::Debug) -> String {
         let mut out = String::new();

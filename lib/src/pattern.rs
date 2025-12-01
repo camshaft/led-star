@@ -158,8 +158,7 @@ where
     fn get(&self) -> Hsv {
         let scale = |v: i8| -> u8 {
             // Scale the oscillator signed to unsigned
-            let v = (v as u8) + 128;
-            v
+            (v as u8) + 128
         };
         let h = scale(self.h.get());
         let s = scale(self.s.get());

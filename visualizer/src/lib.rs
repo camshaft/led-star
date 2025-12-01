@@ -119,7 +119,7 @@ impl Visualizer {
     /// Write LED colors directly into the provided buffer (h, s, v, h, s, v, ...)
     /// The buffer must be at least total_leds() * 3 bytes
     pub fn read_leds_into(&self, buffer: &mut [u8]) -> Result<(), JsValue> {
-        self.state.fill(buffer).map_err(|e| JsValue::from(e))
+        self.state.fill(buffer).map_err(JsValue::from)
     }
 
     /// Get the number of spines

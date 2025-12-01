@@ -8,6 +8,10 @@ repository.workspace = true
 [lib]
 crate-type = ["cdylib", "rlib"]
 
+[features]
+default = ["console_error_panic_hook"]
+console_error_panic_hook = ["dep:console_error_panic_hook"]
+
 # Increase WASM memory (16 pages = 1MB)
 [package.metadata.wasm-pack.profile.release]
 wasm-opt = true
@@ -18,23 +22,7 @@ wasm-opt = false
 [dependencies]
 led-star = { path = "../lib", features = ["std", "wasm"] }
 wasm-bindgen = "0.2"
-serde = { workspace = true }
-serde-wasm-bindgen = "0.6"
-
-[dependencies.web-sys]
-version = "0.3"
-features = ["console"]
-
-[features]
-default = ["console_error_panic_hook"]
-console_error_panic_hook = ["dep:console_error_panic_hook"]
 
 [dependencies.console_error_panic_hook]
 version = "0.1"
 optional = true
-
-[profile.release]
-# Optimize for size
-opt-level = "z"
-lto = true
-codegen-units = 1

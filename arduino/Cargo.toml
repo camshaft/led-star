@@ -1,0 +1,22 @@
+[package]
+name = "led-star-arduino"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[features]
+fmt = ["dep:ufmt"]
+
+[dependencies]
+led-star = { path = "../lib", default-features = false }
+panic-halt = "0.2"
+embedded-hal = "1.0"
+avr-device = { version = "0.8", features = ["atmega328p"] }
+
+ufmt = { version = "0.2", optional = true }
+
+[dependencies.arduino-hal]
+git = "https://github.com/rahix/avr-hal"
+rev = "0f7fa4d01755f1985d95ed2015d5464a29154b05"
+features = ["arduino-uno"]
